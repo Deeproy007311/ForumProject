@@ -32,12 +32,12 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
         <button class="btn btn-primary mx-3" style="
             position: relative;
             right: 197px;
-            top: 39px;">Login</button>
+            top: 39px;" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
         <button class="btn btn-primary" style="
             position: relative;
             right: 189px;
             top: 38px;
-            ">Signup</button>
+            "  data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>
         <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -47,5 +47,6 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
 </div>
 </div>
 </nav>';
-
+include 'partials/loginModal.php';
+include 'partials/signupModal.php';
 ?>

@@ -54,19 +54,21 @@
             $sql = "SELECT * FROM `categories`";
             $result = mysqli_query($conn, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
+                $cat_id = $row['category_id'];
                 $cat = $row['category_name'];
                 $catDesc = $row['category_description'];
                 echo '<div class="col-md-4">
                 <div class="card" style="width: 18rem;">
                     <img src="https://source.unsplash.com/400x300/?'. $cat .',code" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">'. $cat .'</h5>
+                        <h5 class="card-title"><a href="threads.php?cat_id='. $cat_id .'">'. $cat .'</a></h5>
                         <p class="card-text">'. substr($catDesc, 0, 80) .'...</p>
-                        <a href="#" class="btn btn-primary">View Threads</a>
+                        <a href="threads.php?cat_id='. $cat_id .'" class="btn btn-primary">View Threads</a>
                     </div>
                 </div>
             </div>'; 
             }
+            
             ?>
 
         </div>

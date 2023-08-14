@@ -61,9 +61,9 @@
                 <div class="card" style="width: 18rem;">
                     <img src="https://source.unsplash.com/400x300/?'. $cat .',code" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="threads.php?cat_id='. $cat_id .'">'. $cat .'</a></h5>
+                        <h5 class="card-title"><a href="threadlist.php?cat_id='. $cat_id .'">'. $cat .'</a></h5>
                         <p class="card-text">'. substr($catDesc, 0, 80) .'...</p>
-                        <a href="threads.php?cat_id='. $cat_id .'" class="btn btn-primary">View Threads</a>
+                        <a href="threadlist.php?cat_id='. $cat_id .'" class="btn btn-primary">View Threads</a>
                     </div>
                 </div>
             </div>'; 

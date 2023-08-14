@@ -14,43 +14,28 @@
     <?php include 'partials/header.php';?>
     <?php include 'partials/_dbconnect.php';?>
     <?php
-        $id = $_GET['cat_id'];
-        $sql = "SELECT * FROM `categories` WHERE `category_id`=$id";
+        $id = $_GET['thread_id'];
+        $sql = "SELECT * FROM `threads` WHERE `thread_id`=$id";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
-            $catname = $row['category_name'];
-            $catdesc = $row['category_description'];
-
+            $title = $row['thread_title'];
+            $desc = $row['thread_desc'];
         }
     ?>
-    <!-- Jumbotron -->
-    <div class="container my-4" style="background-color: #D8D9DA;">
+    <div class="container my-4">
         <div class="jumbotron">
-            <h1 class="display-4">Welcome to <?php echo $catname?> forum</h1>
-            <p class="lead"><?php echo $catdesc?></p>
+            <h1 class="display-4"><?php echo $title?></h1>
+            <p class="lead"><?php echo $desc?></p>
+            <p><b>Posted by: Deep</b></p>
             <hr class="my-4">
-            <p>This is peer to peer forum to share knowledge with each other.</p>
+            <p>This is peer to peer forum to share knowledge with each other.<br>
         </div>
     </div>
-    <!-- Asking some Questions -->
-    <div class="container pb-4 pt-4">
-        <h1>Ask some Questions</h1>
-        <form>
-            <div class="mb-3">
-                <label for="title" class="form-label">Problem Title</label>
-                <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
-            </div>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"></textarea>
-                <label for="floatingTextarea">Elaborate your problem</label>
-            </div>
-            <button type="submit" class="btn btn-primary " >Submit</button>
-        </form>
-    </div>
-    <!-- questions -->
-    <div class="container pb-4 pt-4">
-        <h1>Browse Questions</h1>
-        <?php
+
+    <!-- discussions -->
+    <div class="container pb-4">
+        <h1>Discussions</h1>
+        <!-- <?php
         $id = $_GET['cat_id'];
         $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
         $result = mysqli_query($conn, $sql);
@@ -65,7 +50,7 @@
             <div class="media">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
-                    <h5 class="mt-0"><a href="thread.php?thread_id='. $id .'">'. $title .'</a></h5>
+                    <h5 class="mt-0"><a href="thread.php">'. $title .'</a></h5>
                     '. $desc .'
                 </div>
             </div>';
@@ -78,8 +63,7 @@
             </div>
           </div>';
         }
-        ?>
-
+        ?> -->
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -22,6 +22,22 @@
             $desc = $row['thread_desc'];
         }
     ?>
+    <?php
+    $showAlert = false;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // if server method is post a comment will handeled in the page.
+            $comment = $_POST['comment'];
+            $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_time`) VALUES ('$comment', '$id', current_timestamp());";
+            $result = mysqli_query($conn, $sql);
+            $showAlert = true;
+            if ($showAlert) {
+                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Your comment has been added.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+            }
+        }
+    ?>
     <div class="container my-4">
         <div class="jumbotron">
             <h1 class="display-4"><?php echo $title?></h1>
@@ -31,27 +47,36 @@
             <p>This is peer to peer forum to share knowledge with each other.<br>
         </div>
     </div>
+    <!-- Post your comments here -->
+    <div class="container pb-4 pt-4">
+        <h1>Post your comment here</h1>
+        <form action="<?php $_SERVER["REQUEST_URI"];?>" method="post">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"></textarea>
+                <label for="floatingTextarea">write your very own comments</label>
+            </div>
+            <button type="submit" class="btn btn-primary " >Post</button>
+        </form>
+    </div>
 
     <!-- discussions -->
     <div class="container pb-4">
         <h1>Discussions</h1>
-        <!-- <?php
-        $id = $_GET['cat_id'];
-        $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
+        <?php
+        $id = $_GET['thread_id'];
+        $sql = "SELECT * FROM `comments` WHERE thread_id=$id";
         $result = mysqli_query($conn, $sql);
         $noResult = true;
         while ($row = mysqli_fetch_assoc($result)) {
             $noResult = false;
-            $id = $row['thread_id'];
-            $title = $row['thread_title'];
-            $desc = $row['thread_desc'];
+            $id = $row['comment_id'];
+            $content = $row['comment_content'];
 
             echo '
             <div class="media">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
-                    <h5 class="mt-0"><a href="thread.php">'. $title .'</a></h5>
-                    '. $desc .'
+                    '. $content .'
                 </div>
             </div>';
         }
@@ -63,7 +88,7 @@
             </div>
           </div>';
         }
-        ?> -->
+        ?>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

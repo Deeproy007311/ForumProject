@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-
+    
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,25 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $catname = $row['category_name'];
             $catdesc = $row['category_description'];
+            
 
+        }
+    ?>
+    <?php
+    $showAlert = false;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // if server method is post we will a thread into out threadlist page
+            $th_title = $_POST['title'];
+            $th_desc = $_POST['desc'];
+            $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '0', current_timestamp())";
+            $result = mysqli_query($conn, $sql);
+            $showAlert = true;
+            if ($showAlert) {
+                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> Your thread has been added.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>';
+            }
         }
     ?>
     <!-- Jumbotron -->
@@ -35,7 +53,7 @@
     <!-- Asking some Questions -->
     <div class="container pb-4 pt-4">
         <h1>Ask some Questions</h1>
-        <form>
+        <form action="<?php $_SERVER["REQUEST_URI"];?>" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label">Problem Title</label>
                 <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">

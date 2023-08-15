@@ -49,4 +49,10 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
 </nav>';
 include 'partials/loginModal.php';
 include 'partials/signupModal.php';
+if (isset($_GET['signupsuccess']) and $_GET['signupsuccess'] == true) {
+    echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+    <strong>Success</strong> You have signed up.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+}
 ?>

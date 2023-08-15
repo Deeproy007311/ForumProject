@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $showError = "password do not match";
             
         } 
-        header("Location: /forumproject/index.php?signupsuccess=false&error=$shoError");  
+        header("Location: /forumproject/index.php?signupsuccess=false&error=$showError");  
     }
 }
 ?>

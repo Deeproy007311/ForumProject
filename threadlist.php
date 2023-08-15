@@ -78,11 +78,13 @@
             $id = $row['thread_id'];
             $title = $row['thread_title'];
             $desc = $row['thread_desc'];
+            $threadtime = $row['timestamp'];
 
             echo '
-            <div class="media">
+            <div class="media" style="display: flex;">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
+                <p class="font-weight-bold my-0">Anonymus</p>
                     <h5 class="mt-0"><a href="thread.php?thread_id='. $id .'">'. $title .'</a></h5>
                     '. $desc .'
                 </div>

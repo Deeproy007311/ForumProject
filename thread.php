@@ -27,7 +27,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // if server method is post a comment will handeled in the page.
             $comment = $_POST['comment'];
-            $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_time`) VALUES ('$comment', '$id', current_timestamp());";
+            $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_time`) VALUES ('$comment', '$id', current_timestamp())";
             $result = mysqli_query($conn, $sql);
             $showAlert = true;
             if ($showAlert) {
@@ -71,11 +71,13 @@
             $noResult = false;
             $id = $row['comment_id'];
             $content = $row['comment_content'];
+            $comment = $row['comment_time'];
 
             echo '
-            <div class="media">
+            <div class="media mb-4" style="display: flex;">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
+                <p class="font-weight-bold my-0">Anonymus</p>
                     '. $content .'
                 </div>
             </div>';

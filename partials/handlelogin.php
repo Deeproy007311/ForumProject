@@ -1,7 +1,4 @@
 <?php
-// $showAlert = false;
-// $showError = false;
-// $login = false;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '_dbconnect.php';
 
@@ -18,12 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         session_start();
         $_SESSION['loggedin'] = true;
         $_SESSION['user_email'] = $user_email;
-        echo "Logged in " . $user_email;
-        // header("Location: /forumproject/index.php");
       }
-      else{
-        echo "Unable to login";
-      }
+      header("Location: /forumproject/index.php");
     }
+    header("Location: /forumproject/index.php");
 }
 ?>

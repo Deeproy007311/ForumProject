@@ -1,4 +1,5 @@
 <?php
+session_start();
 echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
 <div class="container-fluid">
 <a class="navbar-brand" href="#">Discuss-Forum</a>
@@ -28,25 +29,37 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
         </ul>
     </li>
     </ul>
-    <div class="mx-2">
-        <button class="btn btn-primary mx-3" style="
-            position: relative;
-            right: 197px;
-            top: 39px;" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-        <button class="btn btn-primary" style="
-            position: relative;
-            right: 189px;
-            top: 38px;
-            "  data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>
-        <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+    <div class="mx-2">';
+    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
+        echo '
+        <p>Welcome '. $_SESSION['user_email'] .'</p>
+        <a href="partials/logout.php" type="button" class="btn btn-primary my-0 mx-2">Logout</a>';
+        
+    }
+    else{
+        echo '<button class="btn btn-primary mx-3" style="
+        position: relative;
+        right: 197px;
+        top: 39px;" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+    <button class="btn btn-primary" style="
+        position: relative;
+        right: 189px;
+        top: 38px;
+        "  data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>
+    <form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
-    </div>
+</div>';
+    }
+
+        
     
-</div>
+echo '</div>
 </div>
 </nav>';
+
+
 include 'partials/loginModal.php';
 include 'partials/signupModal.php';
 if (isset($_GET['signupsuccess']) and $_GET['signupsuccess'] == true) {
@@ -55,4 +68,6 @@ if (isset($_GET['signupsuccess']) and $_GET['signupsuccess'] == true) {
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
 }
+
+
 ?>

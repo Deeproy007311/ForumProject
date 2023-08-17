@@ -48,16 +48,27 @@
         </div>
     </div>
     <!-- Post your comments here -->
-    <div class="container pb-4 pt-4">
+    <?php
+    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
+        echo '<div class="container pb-4 pt-4">
         <h1>Post your comment here</h1>
-        <form action="<?php $_SERVER["REQUEST_URI"];?>" method="post">
+        <form action="' . $_SERVER["REQUEST_URI"] . '" method="post">
             <div class="form-floating">
                 <textarea class="form-control" placeholder="Leave a comment here" id="comment" name="comment"></textarea>
                 <label for="floatingTextarea">write your very own comments</label>
             </div>
             <button type="submit" class="btn btn-primary " >Post</button>
         </form>
-    </div>
+    </div>';
+    }
+    else{
+        echo '<div class="alert alert-danger" role="alert">
+        You are not logged in. after login you can post your comments.
+    </div>';
+    }
+    ?>
+    
+    
 
     <!-- discussions -->
     <div class="container pb-4">

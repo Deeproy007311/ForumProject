@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-    
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,11 +32,14 @@
             $result = mysqli_query($conn, $sql);
             $showAlert = true;
             if ($showAlert) {
-                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                echo '<div class="container">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> Your thread has been added.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>';
+              </div>
+                </div>';
             }
+            
         }
     ?>
     <!-- Jumbotron -->
@@ -49,20 +52,30 @@
         </div>
     </div>
     <!-- Asking some Questions -->
-    <div class="container pb-4 pt-4">
-        <h1>Ask some Questions</h1>
-        <form action="<?php $_SERVER["REQUEST_URI"];?>" method="post">
-            <div class="mb-3">
-                <label for="title" class="form-label">Problem Title</label>
-                <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
-            </div>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"></textarea>
-                <label for="floatingTextarea">Elaborate your problem</label>
-            </div>
-            <button type="submit" class="btn btn-primary " >Submit</button>
-        </form>
+    <?php
+    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
+    echo '<div class="container pb-4 pt-4">
+    <h1>Ask some Questions</h1>
+    <form action="' . $_SERVER["REQUEST_URI"] . '" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Problem Title</label>
+        <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
     </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"></textarea>
+        <label for="floatingTextarea">Elaborate your problem</label>
+    </div>
+    <button type="submit" class="btn btn-primary ">Submit</button>
+    </form>
+    </div>';
+    }
+    else {
+    echo '<div class="alert alert-danger" role="alert">
+        You are not logged in. after login you can start your discussions.
+    </div>';
+    }
+
+    ?>
     <!-- questions -->
     <div class="container pb-4 pt-4">
         <h1>Browse Questions</h1>

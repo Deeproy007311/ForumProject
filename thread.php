@@ -83,12 +83,16 @@
             $id = $row['comment_id'];
             $content = $row['comment_content'];
             $comment = $row['comment_time'];
+            $comment_by = $row['comment_by'];
+            $sql2 = "SELECT user_email FROM `users` WHERE sno = '$comment_by'";
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
 
             echo '
             <div class="media mb-4" style="display: flex;">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
-                <p class="font-weight-bold my-0">Anonymus</p>
+                <p class="font-weight-bold my-0">'. $row2['user_email'] .'</p>
                     '. $content .'
                 </div>
             </div>';

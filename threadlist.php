@@ -90,12 +90,17 @@
             $title = $row['thread_title'];
             $desc = $row['thread_desc'];
             $threadtime = $row['timestamp'];
+            $thread_user_id = $row['thread_user_id'];
+            $sql2 = "SELECT user_email FROM `users` WHERE sno = '$thread_user_id'";
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_assoc($result2);
+
 
             echo '
             <div class="media" style="display: flex;">
                 <i class="fa-solid fa-user"></i>
                 <div class="media-body">
-                <p class="font-weight-bold my-0">Anonymus</p>
+                <p class="font-weight-bold my-0"><b>Asked by: </b>'. $row2['user_email'] .'</p>
                     <h5 class="mt-0"><a href="thread.php?thread_id='. $id .'">'. $title .'</a></h5>
                     '. $desc .'
                 </div>

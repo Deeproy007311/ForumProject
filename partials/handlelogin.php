@@ -4,8 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $user_email = $_POST['loginEmail'];
     $user_pass = $_POST['loginPassword'];
-    
-    
+        
     $sql = "SELECT * FROM `users` WHERE user_email='$user_email'";
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);

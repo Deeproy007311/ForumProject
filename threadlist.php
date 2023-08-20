@@ -28,7 +28,8 @@
             // if server method is post we will a thread into out threadlist page
             $th_title = $_POST['title'];
             $th_desc = $_POST['desc'];
-            $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '0', current_timestamp())";
+            $sno = $_POST['sno']; 
+            $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '$sno', current_timestamp())";
             $result = mysqli_query($conn, $sql);
             $showAlert = true;
             if ($showAlert) {
@@ -61,6 +62,7 @@
         <label for="title" class="form-label">Problem Title</label>
         <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
     </div>
+    <input type="hidden" name="sno" value="'. $_SESSION["sno"] . '">
     <div class="form-floating">
         <textarea class="form-control" placeholder="Leave a comment here" id="desc" name="desc"></textarea>
         <label for="floatingTextarea">Elaborate your problem</label>
@@ -81,7 +83,7 @@
         <h1>Browse Questions</h1>
         <?php
         $id = $_GET['cat_id'];
-        $sql = "SELECT * FROM `threads` WHERE thread_cat_id=$id";
+        $sql = "SELECT * FROM `threads` WHERE `thread_cat_id`= $id";
         $result = mysqli_query($conn, $sql);
         $noResult = true;
         while ($row = mysqli_fetch_assoc($result)) {
@@ -91,20 +93,22 @@
             $desc = $row['thread_desc'];
             $threadtime = $row['timestamp'];
             $thread_user_id = $row['thread_user_id'];
-            $sql2 = "SELECT user_email FROM `users` WHERE sno = '$thread_user_id'";
+
+            $sql2 = "SELECT `user_email` FROM `users` WHERE `sno` = '$thread_user_id'";
             $result2 = mysqli_query($conn, $sql2);
-            $row2 = mysqli_fetch_assoc($result2);
+            if ($result2) {
+                $row2 = mysqli_fetch_assoc($result2);
+                
+                echo '<div class="media my-3">
+            <img src="img/userdefault.png" width="54px" class="mr-3" alt="...">
+            <div class="media-body">'.
+             '<h5 class="mt-0"> <a class="text-dark" href="thread.php?threadid=' . $id. '">'. $title . ' </a></h5>
+                '. $desc . ' </div>'.'<div class="font-weight-bold my-0"> Asked by: '. $row2['user_email'] . '</div>'.
+        '</div>';
+            } else {
+                echo 'Error fetching user information.';
+            }
 
-
-            echo '
-            <div class="media" style="display: flex;">
-                <i class="fa-solid fa-user"></i>
-                <div class="media-body">
-                <p class="font-weight-bold my-0"><b>Asked by: </b>'. $row2['user_email'] .'</p>
-                    <h5 class="mt-0"><a href="thread.php?thread_id='. $id .'">'. $title .'</a></h5>
-                    '. $desc .'
-                </div>
-            </div>';
         }
         if ($noResult) {
             echo '<div class="jumbotron jumbotron-fluid" style="background-color: #D8D9DA;">

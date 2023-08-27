@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pass = $_POST['signupPassword'];
     $cpass = $_POST['signupCpassword'];
 
-    //check wheather the username is already exists in the database or not
+    //check wheather the email is already exists in the database or not
     $existSql = "SELECT * FROM `users` WHERE `user_email`= '$user_email'";
     $result = mysqli_query($conn, $existSql);
     $numExistsRows = mysqli_num_rows($result);

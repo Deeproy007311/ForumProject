@@ -18,47 +18,41 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
         <a class="nav-link" href="contact.php">Contact</a>
     </li>
     <li class="nav-item dropdown">
+
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         Category
         </a>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Action</a></li>
-        <li><a class="dropdown-item" href="#">Another action</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-    </li>
-    </ul>
-    <div class="mx-2">';
-    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
-        echo '
-        <p>Welcome '. $_SESSION['user_email'] .'</p>
-        <a href="partials/logout.php" type="button" class="btn btn-primary my-0 mx-2">Logout</a>';
-        
-    }
-    else{
-        echo '<button class="btn btn-primary mx-3" style="
-        position: relative;
-        right: 197px;
-        top: 39px;" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
-    <button class="btn btn-primary" style="
-        position: relative;
-        right: 189px;
-        top: 38px;
-        "  data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>
-    <form class="d-flex" role="search">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-</div>';
-    }
+        <ul class="dropdown-menu">';
 
-        
+        $sql = "SELECT `category_name`, `category_id` FROM `categories` LIMIT 4";
+        $result = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($result)){
+            echo '<li><a class="dropdown-item" href="threadlist.php?cat_id='. $row['category_id'].'">'. $row['category_name'] .'</a></li>';
+        } 
+
+        echo '</ul>
+    </li>
+    </ul>';
     
-echo '</div>
+    if (isset($_SESSION['loggedin']) and $_SESSION['loggedin'] == true) {
+        echo '<div class="d-flex align-items-center">';
+        echo '<p class="mb-0 me-3">Welcome '. $_SESSION['user_email'] .'</p>
+        <a href="partials/logout.php" type="button" class="btn btn-primary me-2">Logout</a>
+        <form class="d-flex" role="search" action="search.php" method="get">
+            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>';
+        echo '</div>';
+    } else {
+        echo '<div>';
+        echo '<button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</button>';
+        echo '</div>';
+    }
+    
+    echo '</div>
 </div>
 </nav>';
-
 
 include 'partials/loginModal.php';
 include 'partials/signupModal.php';
@@ -68,6 +62,4 @@ if (isset($_GET['signupsuccess']) and $_GET['signupsuccess'] == true) {
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
 }
-
-
 ?>

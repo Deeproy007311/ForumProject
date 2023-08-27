@@ -11,10 +11,10 @@
 </head>
 
 <body>
-    <?php include 'partials/header.php';?>
     <!-- Database connection -->
     <?php include 'partials/_dbconnect.php';?>
     <!-- This is carousel -->
+    <?php include 'partials/header.php';?>
     <div id="carouselExampleIndicators" class="carousel slide">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -48,7 +48,7 @@
     </div>
     <!-- This is content -->
     <div class="container my-3">
-        <h2 class="text-center">Welcome to idiscuss Browse Categories👨‍💻</h2>
+        <h2 class="text-center">Welcome! Choose your favourite Categories👨‍💻</h2>
         <div class="row">
             <!-- Here we will the categories of forum project from the database -->
             <?php

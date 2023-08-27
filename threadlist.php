@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <?php include 'partials/header.php';?>
     <?php include 'partials/_dbconnect.php';?>
+    <?php include 'partials/header.php';?>
     <?php
         $id = $_GET['cat_id'];
         $sql = "SELECT * FROM `categories` WHERE `category_id`=$id";
